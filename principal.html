@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title itemprop="name">Principal page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <script src="https://use.fontawesome.com/2744eb32f7.js"></script>
+    <script src="principal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.print.css" />
+    <!-- <script src="clndr.js"></script> -->
+    <!-- <script src="require.js"></script> -->
+</head>
+
+<body class="Site">
+    <header class="Site-header w3-container w3-green w3-center w3-row">
+        <div class="w3-col m2 w3-center">
+            <button class="w3-btn" id="myClassesButton"> My Classes </button>
+        </div>
+        <div class="w3-col m2 w3-center">
+            <button class="w3-btn" id="allClassesButton"> Class </button>
+        </div>
+        <div class="w3-col m2 w3-center">
+            <button class="w3-btn" id="eventsClasses"> Event Scheduling </button>
+        </div>
+        <div class="w3-col m2 w3-right">
+            <p id="logInLabel">
+                <em>Logged in as: <strong><span id="loginLabelUser"></span></strong></em>
+                <br />
+                <span id="logOut" style="cursor:pointer"><em><strong>Log out</strong></em></span>
+            </p>
+        </div>
+    </header>
+    <main class="content">
+        <div class="content-inside">
+            <div id="classesShow">
+                <div class="w3-row">
+                    <div class="w3-col m3">
+                        <p>
+
+                        </p>
+                    </div>
+                    <article class="form-search w3-container w3-col m6 w3-theme w3-topbar w3-bottombar w3-border-white">
+                        <br />
+                        <form id="searchForm" class="w3-form w3-card-8 w3-white" action="http://10.10.2.121:3240/classes/" method="post" align="center">
+                            <br>
+                            <label class="w3-label w3-large">Class name: &nbsp;&nbsp;</label>
+                            <input list="classSearch" type="text" name="className" class="w3-input w3-margin-bottom w3-leftbar w3-validate w3-border-blue" id="className" placeholder="Pick a class" />
+                            <datalist id="classSearch">
+                            </datalist>
+                            <br>
+                            <label class="w3-label w3-large">University: </label>
+                            <input list="universitySearch" class="w3-input w3-margin-bottom w3-leftbar w3-validate w3-border-blue" name="universityName" type="text" placeholder="Pick a university">
+                            <datalist id="universitySearch">
+                            </datalist>
+                            <br>
+                            <br>
+                            <button id="formButton" class="w3-btn w3-large w3-green w3-padding" type="submit">Submit</button>
+                            <br>
+                            <br>
+                            <input type="number" name="start" id="formPageSelector" min="0" max="100000" value="0" style="display: none;" />
+                        </form>
+                        <br />
+                        <br />
+                        <nav class="w3-center w3-container">
+                            <ul class="w3-pagination w3-large" id="pageList">
+                                <li id="startList">
+                                    <a href="#" class="fa fa-angle-double-left"></a>
+                                </li>
+                                <li id="previousList">
+                                    <a href="#" class="fa fa-angle-left"></a>
+                                </li>
+                                <li><a href="#" class="w3-green" id="firstList">1</a></li>
+                                <li><a href="#" id="secondList">2</a></li>
+                                <li><a href="#" id="thirdList">3</a></li>
+                                <li id="nextList">
+                                    <a href="#" class="fa fa-angle-right"></a>
+                                </li>
+                                <li id="endList">
+                                    <a href="#" class="fa fa-angle-double-right"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </article>
+                    <div class="w3-col m3">
+                        <p>
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w3-row">
+                    <div class="w3-col m2">
+                        <p>
+
+                        </p>
+                    </div>
+                    <div class="w3-col m8">
+                        <article class="results-search w3-container w3-bottombar w3-border-white">
+                        </article>
+                        <div class="w3-center">
+                            <button class="w3-btn">Submit enrollments!</button>
+                        </div>
+                    </div>
+                    <div class="w3-col m2">
+                        <p>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="myClassShow">
+                <!-- <div id="mini-clndr"></div>
+                <script id="calendar-template" type="text/template">
+                    <div class="controls">
+                        <div class="clndr-previous-button">&lsaquo;</div>
+                        <div class="month">
+                            <%= month %>
+                        </div>
+                        <div class="clndr-next-button">&rsaquo;</div>
+                    </div>
+                    <div class="days-container">
+                        <div class="days">
+                            <div class="headers">
+                                <% _.each(daysOfTheWeek, function(day) { %>
+                                    <div class="day-header">
+                                        <%= day %>
+                                    </div>
+                                    <% }); %>
+                            </div>
+                            <% _.each(days, function(day) { %>
+                                <div class="<%= day.classes %>" id="<%= day.id %>">
+                                    <%= day.day %>
+                                </div>
+                                <% }); %>
+                        </div>
+                    </div> -->
+            </div>
+        </div>
+        <footer class="footer">
+
+        </footer>
+
+    </main>
+
+    <!-- TEMPLATE -->
+    <div data-role="template" id="template">
+        <article class="banner w3-card-8 w3-theme-d1">
+            <!-- <a class="link" href="airportTemplate.html"> -->
+            <p>
+
+            </p>
+            <div class="w3-row">
+                <div class="w3-col m1">
+                    <p>
+
+                    </p>
+                </div>
+                <div class="w3-col m5">
+                    <p class="w3-xlarge"><i class="fa fa-mortar-board"></i>Class: <span class="className">Computer Science</span></p>
+                    <p class="w3-large"><i class="fa fa-institution"></i>University: <span class="universityName">Politehnica</span></p>
+                    <br />
+                </div>
+                <div class="w3-col m2">
+                    <p>
+
+                    </p>
+                </div>
+                <div class="w3-col m3">
+                    <label>
+                        <input type="checkbox" class="w3-check checkbox">Enroll me!</label>
+                    <br>
+                </div>
+            </div>
+            <p>
+
+            </p>
+            <!-- </a> -->
+        </article>
+    </div>
+    <div id="classTemplate">
+
+    </div>
+</body>
+
+</html>
